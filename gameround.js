@@ -1,0 +1,55 @@
+"use strict";
+
+
+class GameRound{
+    
+    
+    constructor(options){
+        this.options = options
+        this.field = new GameField(options.width, options.height);
+        this.players = new Map();
+        
+        this.width = options.width;
+        this.height = options.height;
+        this.recentDeaths = 0;
+    }
+    
+    
+    makeHead(name, colour){
+        
+        
+        var player = new Head(name, colour, this, {
+            x: Math.random() * this.width,
+            y: Math.random() * this.height,
+            dir: Math.random() * 2 * Math.PI,
+            speed: this.options.speed,
+            size: this.options.radius,
+            rotSpeed: this.options.rotationspeed
+        });
+        this.players.set(name, player);
+        
+    }
+    
+    controlPlayer(name, control){
+        this.players.get(name).control = control;
+    }
+    
+    removePlayer(name){
+        this.players.delete(name);
+    }
+    
+    update(timePassed){
+        this.recentDeaths = 0;
+        for (let player of this.players.values()){
+            player.update(timePassed)
+        }
+    }
+    
+    isInGame(playername){
+        return this.players.has(playername)
+    }
+    
+    livingPlayers(){
+        return new Set(this.players.keys());
+    }
+}
