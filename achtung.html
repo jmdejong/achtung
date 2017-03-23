@@ -1,32 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset='utf-8'/>
-<style type='text/css'>
+    <meta charset='utf-8'/>
+    <style type='text/css'>
 
 .gamecanvas {
     background-color: black;
+    float: left;
 }
+    </style>
 
-</style>
+    <script src='utils.js'></script>
 
-<script src='utils.js'></script>
+    <script src='gamefield.js'></script>
+    <script src='head.js'></script>
+    <script src='gameround.js'></script>
+    <script src='controllers.js'></script>
+    <script src='input.js'></script>
+    <script src='player.js'></script>
 
-<script src='gamefield.js'></script>
-<script src='head.js'></script>
-<script src='gameround.js'></script>
-<script src='controllers.js'></script>
-<script src='input.js'></script>
-<script src='player.js'></script>
+    <script src='drawing.js'></script>
 
-<script src='drawing.js'></script>
+    <script src='achtung.js'></script>
 
-<script src='defaultoptions.js'></script>
-
-<script src='achtung.js'></script>
+    <script src='defaultoptions.js'></script>
+    
+    <script src='main.js'></script>
+    
 </head>
 <body>
-<canvas id='gamecanvas' class='gamecanvas' width=400 height=400>
-</canvas>
+    
+    <canvas id='gamecanvas' class='gamecanvas' width=800 height=600>
+    </canvas>
+
+    <form id='optionsform' action='javascript:void(0)'>
+        <textarea id='optionstext' rows=35 cols=60>
+{
+    "width": 800,
+    "height": 600,
+    "speed": 100,
+    "radius": 3,
+    "rotationspeed": 3,
+    "waitbefore": 3,
+    "waitafter": 3,
+    "maxtimestep": 0.0333,
+    "wrapboundaries": false,
+    
+    "players":[
+        {
+            "name": "player",
+            "colour": "blue",
+            "controltype": "input",
+            "leftcontrol": "key_ArrowLeft",
+            "rightcontrol": "key_ArrowRight"
+        },
+        {
+            "name": "Gronald1",
+            "colour": "red",
+            "controltype": "input",
+            "leftcontrol": "key_a",
+            "rightcontrol": "key_d"
+        },
+        {
+            "name": "Gronald2",
+            "colour": "green",
+            "controltype": "random"
+        }
+    ]
+}
+        </textarea>
+        <br />
+        <input type="submit" id="startbutton" value="Start">
+    </form>
+
 </body>
 </html>

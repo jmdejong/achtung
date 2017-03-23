@@ -65,13 +65,3 @@ class Achtung {
     
 }
 
-
-function main(){
-    
-    var game = new Achtung(deepClone(DEFAULT_OPTIONS), "gamecanvas");
-
-}
-
-
-
-window.addEventListener('load', main)
