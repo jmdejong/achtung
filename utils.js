@@ -1,6 +1,5 @@
 
 // from MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
-
 function deepFreeze(obj) {
 
   // Retrieve the property names defined on obj
@@ -19,9 +18,11 @@ function deepFreeze(obj) {
   return Object.freeze(obj);
 }
 
+
 function deepClone(obj){
     return JSON.parse(JSON.stringify(obj));
 }
+
 
 /** A modulo function where if and b are integers, and b > 0
  * then mod(a, b) >= 0 and mod(a, b) < b 

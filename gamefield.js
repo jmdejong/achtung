@@ -44,6 +44,7 @@ class GameField {
                 return true;
             }
         });
+        return value
     }
     
     // execute a callback for all values in a circle, until the callback returns true (or any truthy value)

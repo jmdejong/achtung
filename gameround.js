@@ -12,13 +12,14 @@ class GameRound{
         this.width = options.width;
         this.height = options.height;
         this.recentDeaths = 0;
+        this.lastId = 1;
     }
     
     
     makeHead(name, colour){
         
         
-        var player = new Head(name, colour, this, {
+        var player = new Head(name, this.lastId++, colour, this, {
             x: Math.random() * this.width,
             y: Math.random() * this.height,
             dir: Math.random() * 2 * Math.PI,

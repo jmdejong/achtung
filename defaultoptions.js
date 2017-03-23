@@ -21,9 +21,10 @@ const DEFAULT_OPTIONS = {
         },
         {
             name: "Gronald1",
-            colour: "red"/*,
-            controltype: "static",
-            controlvalue: 1*/
+            colour: "red",
+            controltype: "input",
+            leftcontrol: "key_a",
+            rightcontrol: "key_d"
         },
         {
             name: "Gronald2",

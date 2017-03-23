@@ -10,7 +10,7 @@ class NoController {
 
 class StaticController {
     
-    constructor(options, playername){
+    constructor(options){
         this.value = options.controlvalue;
     }
     
@@ -31,8 +31,7 @@ class RandomController {
 
 class InputController {
     
-    constructor(options, playername){
-        this.playername = playername || options.name;
+    constructor(options){
         this.left = options.leftcontrol;
         this.right = options.rightcontrol;
     }
