@@ -14,7 +14,7 @@ class Player {
     }
     
     control(input, game){
-        game.controlPlayer(this.id, this.controller.control(input, game));
+        game.controlPlayer(this.id, this.controller.control(input, this.getData(game), game));
     }
     
     
@@ -37,7 +37,9 @@ class Player {
             data.y = head.y;
             data.dir = head.dir;
             data.size = head.size;
+            data.hole = head.holeLeft > 0;
         }
+        data.controller = this.controller;
         return data;
     }
 }

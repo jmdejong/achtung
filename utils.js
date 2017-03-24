@@ -24,6 +24,12 @@ function deepClone(obj){
 }
 
 
+function distanceWrapped(x1, y1, x2, y2, width, height){
+    var dx = mod(x1 - x2, width);
+    var dy = mod(y1 - y2, height);
+    return Math.hypot(Math.min(dx, width-dx), Math.min(dy, height-dy))
+}
+
 /** A modulo function where if and b are integers, and b > 0
  * then mod(a, b) >= 0 and mod(a, b) < b 
  */

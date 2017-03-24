@@ -2,17 +2,10 @@
 
 class Achtung {
     
-    constructor(){
-        
+    constructor(outputElement){
         this.boundUpdate = this.update.bind(this);
-        
         this.input = new InputManager();
-        
-        this.players = new Map();
-        
-        
-        
-        
+        this.draw = new Draw(outputElement, 1, 1);
     }
     
     getPlayerData(){
@@ -20,9 +13,10 @@ class Achtung {
         return [...this.players.values()].map(p=>p.getData(gameround))
     }
     
-    start(options,outputElement){
+    start(options){
         this.options = options;
-        this.draw = new Draw(outputElement, options.width, options.height);
+        this.draw.setSize(options.width, options.height);
+        this.players = new Map();
         for (var id in options.players){
             var player = options.players[id];
             this.players.set(id, new Player(id, player));
@@ -52,7 +46,8 @@ class Achtung {
     
     control(){
         for (var id of this.gameround.livingPlayers()){
-            this.players.get(id).control(this.input, this.gameround);
+            var player = this.players.get(id);
+            player.control(this.input, this.gameround);
         }
     }
     

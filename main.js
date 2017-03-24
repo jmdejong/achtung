@@ -7,19 +7,20 @@ var game;
 
 function start(e){
     e.preventDefault();
-    var canvas = document.getElementById("gamecanvas");
 //     document.body.focus();
     var form = document.getElementById("optionsform")
     blurform(form);
     disableForm(form);
     var options = JSON.parse(document.getElementById("optionstext").value)
-    game.start(options, canvas)
+    game.start(options)
 }
 
 function main(){
-    game = new Achtung();
+    var canvas = document.getElementById("gamecanvas");
+    game = new Achtung(canvas);
     disableForm(document.getElementById("optionsform"), false);
     document.getElementById("optionsform").addEventListener("submit", start);
+    document.getElementById("startbutton").focus();
 }
 
 function disableForm(form, value=true){
