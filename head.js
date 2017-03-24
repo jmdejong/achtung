@@ -41,11 +41,15 @@ class Head {
         this.rotSpeed = rs;
     }
     
+    updateDir(timePassed){
+        this.dir += ((this.control > 0) - (this.control < 0)) * this.rotSpeed * timePassed;
+    }
+        
+    
     update(timePassed){
         // todo: check the signs
         
-        this.dir += ((this.control > 0) - (this.control < 0)) * this.rotSpeed * timePassed;
-        
+        this.updateDir(timePassed);
         
         this.x += Math.cos(this.dir) * this.speed * timePassed;
         this.y -= Math.sin(this.dir) * this.speed * timePassed;

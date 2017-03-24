@@ -10,7 +10,7 @@ class GameField {
         this.width = width;
         this.height = height;
         
-        this.field = new Uint32Array(width*height)
+        this.field = new Uint32Array(width*height);
     }
     
     isValid(x, y){
@@ -31,7 +31,7 @@ class GameField {
     // set all cells in the circle to value
     setCircle(x, y, radius, value){
         this.forAnyCircle(x, y, radius, (_val, [x, y], field)=>{
-            field.set(x, y, value)
+            field.set(x, y, value);
         })
     }
     
@@ -44,7 +44,7 @@ class GameField {
                 return true;
             }
         });
-        return value
+        return value;
     }
     
     // execute a callback for all values in a circle, until the callback returns true (or any truthy value)

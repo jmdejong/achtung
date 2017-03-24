@@ -17,8 +17,8 @@ class Draw {
     
     reset(){
         this.bgcanvas = document.createElement('canvas');
-        this.bgcanvas.width = this.canvas.width;
-        this.bgcanvas.height = this.canvas.height;
+        this.bgcanvas.width = this.width;
+        this.bgcanvas.height = this.height;
         this.bgctx = this.bgcanvas.getContext('2d');
     }
     

@@ -39,6 +39,12 @@ class GameRound{
         this.players.delete(name);
     }
     
+    halfUpdate(timePassed){
+        for (let player of this.players.values()){
+            player.updateDir(timePassed)
+        }
+    }
+    
     update(timePassed){
         this.recentDeaths = 0;
         for (let player of this.players.values()){
