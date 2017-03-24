@@ -18,7 +18,8 @@ class Achtung {
     start(options,outputElement){
         this.options = options;
         this.draw = new Draw(outputElement, options.width, options.height);
-        for (var player of options.players){
+        for (var id in options.players){
+            var player = options.players[id];
             this.players.set(player.name, new Player(player));
         }
         this.initRound();

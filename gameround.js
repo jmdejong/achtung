@@ -20,8 +20,8 @@ class GameRound{
         
         
         var player = new Head(name, this.lastId++, colour, this, {
-            x: Math.random() * this.width,
-            y: Math.random() * this.height,
+            x: this.options.spawnedgedistance + Math.random() * (this.width - 2 * this.options.spawnedgedistance),
+            y: this.options.spawnedgedistance + Math.random() * (this.height - 2 * this.options.spawnedgedistance),
             dir: Math.random() * 2 * Math.PI,
             speed: this.options.speed,
             size: this.options.radius,
