@@ -54,10 +54,20 @@ class Head {
         this.x += Math.cos(this.dir) * this.speed * timePassed;
         this.y -= Math.sin(this.dir) * this.speed * timePassed;
         
+        if (this.game.options.wrapboundaries){
+            this.x = mod(this.x, this.game.width);
+            this.y = mod(this.y, this.game.height);
+        }
         
         var self = this;
         this.game.field.forAnyCircle(this.x, this.y, this.size, function(val, [x, y], field){
-            if (val && val != self.id || val == null){
+            if (self.game.options.wrapboundaries){
+                x = mod(x, self.game.width);
+                y = mod(y, self.game.height);
+                val = self.game.field.get(x, y, null);
+            };
+            if (val && val != self.id || val == null){ // yes, the undefind == null is intentional
+                
                 self.die();
             }
             field.set(x, y, self.id);
@@ -67,7 +77,13 @@ class Head {
         // If there ever is a possibility that the size changes during the gameplay
         // then the size should be stored in the tail
         this.tail.push({x: this.x, y: this.y});
-        while(this.tail[0] && Math.hypot((this.x - this.tail[0].x) % this.width, (this.y - this.tail[0].y) % this.height) > this.size*2 + 1){
+        var dx, dy;
+        while(
+            this.tail[0] && (
+                dx = mod(this.x - this.tail[0].x, this.game.width),
+                dy = mod(this.y - this.tail[0].y, this.game.height),
+                Math.hypot(Math.min(dx, this.game.width-dx), Math.min(dy, this.game.height-dy)) > this.size*2 + 1)
+             ){
             this.game.field.setCircle(this.tail[0].x, this.tail[0].y, this.size, -1);
             this.tail.shift();
         }

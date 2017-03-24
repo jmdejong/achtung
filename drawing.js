@@ -40,10 +40,10 @@ class Draw {
         ctx.stroke();
     }
     
-    draw(gameRound, drawDirections){
+    draw(players, drawDirections){
         this.ctx.clearRect(0,0,this.width, this.height);
         this.ctx.drawImage(this.bgcanvas, 0, 0);
-        for (let player of gameRound.players.values()){
+        for (let player of players){
             this.drawPlayer(player, this.ctx);
             this.drawPlayer(player, this.bgctx);
             if (drawDirections){

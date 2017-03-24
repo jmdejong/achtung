@@ -15,12 +15,17 @@ class Achtung {
         
     }
     
+    getPlayerData(){
+        var gameround = this.gameround;
+        return [...this.players.values()].map(p=>p.getData(gameround))
+    }
+    
     start(options,outputElement){
         this.options = options;
         this.draw = new Draw(outputElement, options.width, options.height);
         for (var id in options.players){
             var player = options.players[id];
-            this.players.set(player.name, new Player(player));
+            this.players.set(id, new Player(id, player));
         }
         this.initRound();
         this.lastUpdate = performance.now();
@@ -36,8 +41,8 @@ class Achtung {
     initRound(){
         
         this.gameround = new GameRound(this.options);
-        for (let player of this.options.players){
-            this.gameround.makeHead(player.name, player.colour);
+        for (let player of this.players.values()){
+            this.gameround.makeHead(player.id, player.colour);
         }
         this.draw.reset();
         
@@ -45,13 +50,18 @@ class Achtung {
         this.state = "preGameWait";
     }
     
-    preGameWait(timepassed){
-        for (var name of this.gameround.livingPlayers()){
-            this.players.get(name).control(this.input, this.gameround);
+    control(){
+        for (var id of this.gameround.livingPlayers()){
+            this.players.get(id).control(this.input, this.gameround);
         }
+    }
+    
+    preGameWait(timepassed){
+        
+        this.control();
         
         this.gameround.halfUpdate(Math.min((timepassed)/1000,this.options.maxtimestep));
-        this.draw.draw(this.gameround, true);
+        this.draw.draw(this.getPlayerData(), true);
         
         this.timeToWait -= timepassed;
         if (this.timeToWait <= 0){
@@ -59,20 +69,13 @@ class Achtung {
         }
     }
     
-    
-    startRound(){
-        this.lastUpdateTime = Date.now();
-        this.updateGame();
-    }
-    
     updateGame(timepassed){
         
-        for (var name of this.gameround.livingPlayers()){
-            this.players.get(name).control(this.input, this.gameround);
-        }
+        
+        this.control();
         
         this.gameround.update(Math.min((timepassed)/1000,this.options.maxtimestep));
-        this.draw.draw(this.gameround);
+        this.draw.draw(this.getPlayerData());
         
         if (this.gameround.players.size < 1) {
             this.state = "postGame";
@@ -82,7 +85,7 @@ class Achtung {
     
     postGame(timepassed){
         this.timeToWait -= timepassed;
-        this.draw.draw(this.gameround);
+        this.draw.draw(this.getPlayerData());
         if (this.timeToWait <= 0){
             this.initRound()
         }
