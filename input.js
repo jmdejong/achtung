@@ -1,7 +1,10 @@
+"use strict";
 
+const InputManager = (function(){
 
+var keyDetectors = ["code", "key", "which", "keyCode", "char", "charCode", "keyIdentifier"];
 
-class InputManager{
+return class InputManager{
     
     
     constructor(){
@@ -12,10 +15,26 @@ class InputManager{
     }
     
     onkeydown(e){
-        this.inputs.set("key_"+e.key, true);
+        this.setKeyValue(e, true);
+//         this.inputs.set("key_"+e.key, true);
     }
     onkeyup(e){
-        this.inputs.set("key_"+e.key, false);
+        this.setKeyValue(e, false);
+//         this.inputs.set("key_"+e.key, false);
+    }
+    
+    setKeyValue(event, value){
+        if (event.code){
+            this.inputs.set("keyboard_" + event.code, value);
+        }
+//         console.log(value);
+        for (var d of keyDetectors){
+            if (event[d]){
+                this.inputs.set("keyboard_" + d + "_" + event[d], value);
+//                 console.log("keyboard_" + d + "_" + event[d])
+            }
+        }
+//         console.log("-------------------------");
     }
     
     isDown(input){
@@ -26,3 +45,5 @@ class InputManager{
         return +this.isDown(input);
     }
 }
+
+})();
