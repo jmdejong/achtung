@@ -32,6 +32,7 @@ class Draw {
     
     drawPlayerDirection(player, ctx){
         var length = player.size*3;
+        ctx.lineWidth = 2;
         ctx.strokeStyle = player.colour;
         ctx.beginPath();
         ctx.moveTo(player.x, player.y)

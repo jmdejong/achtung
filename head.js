@@ -54,23 +54,20 @@ class Head {
         this.x += Math.cos(this.dir) * this.speed * timePassed;
         this.y -= Math.sin(this.dir) * this.speed * timePassed;
         
-        if (!this.game.field.isValid(this.x|0, this.y|0)){
-            this.die();
-        }
         
         var self = this;
         this.game.field.forAnyCircle(this.x, this.y, this.size, function(val, [x, y], field){
-            if (val && val != self.id){
+            if (val && val != self.id || val == null){
                 self.die();
             }
             field.set(x, y, self.id);
-        });
+        }, null);
         
         // to remember:
         // If there ever is a possibility that the size changes during the gameplay
         // then the size should be stored in the tail
         this.tail.push({x: this.x, y: this.y});
-        while(this.tail[0] && Math.hypot(this.x - this.tail[0].x, this.y - this.tail[0].y) > this.size*2 + 1){
+        while(this.tail[0] && Math.hypot((this.x - this.tail[0].x) % this.width, (this.y - this.tail[0].y) % this.height) > this.size*2 + 1){
             this.game.field.setCircle(this.tail[0].x, this.tail[0].y, this.size, -1);
             this.tail.shift();
         }

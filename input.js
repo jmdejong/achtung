@@ -26,6 +26,7 @@ return class InputManager{
     setKeyValue(event, value){
         if (event.code){
             this.inputs.set("keyboard_" + event.code, value);
+//             console.log("keyboard_" + event.code, value);
         }
 //         console.log(value);
         for (var d of keyDetectors){

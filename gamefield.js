@@ -48,13 +48,15 @@ class GameField {
     }
     
     // execute a callback for all values in a circle, until the callback returns true (or any truthy value)
-    forAnyCircle(x, y, radius, callback){
+    forAnyCircle(x, y, radius, callback, def){
+        if (radius < 0){
+            throw "Error, radius must be positive"
+        }
         for (let i=Math.floor(x-radius); i<=Math.ceil(x+radius); i++){
             for (let j=Math.floor(y-radius); j<=Math.ceil(y+radius); j++){
                 if (Math.hypot(i-x, j-y) < radius &&
-                    this.isValid(i, j) &&
                     callback(
-                        this.get(i,j),
+                        this.get(i,j, def),
                         [i, j],
                         this)
                 ){

@@ -9,8 +9,11 @@ function start(e){
     e.preventDefault();
     var canvas = document.getElementById("gamecanvas");
 //     document.body.focus();
-    disableForm(document.getElementById("optionsform"));
-    game.start(JSON.parse(document.getElementById("optionstext").value), canvas)
+    var form = document.getElementById("optionsform")
+    blurform(form);
+    disableForm(form);
+    var options = JSON.parse(document.getElementById("optionstext").value)
+    game.start(options, canvas)
 }
 
 function main(){
@@ -22,6 +25,12 @@ function main(){
 function disableForm(form, value=true){
     for (var element of form){
         element.disabled = value;
+    }
+}
+
+function blurform(form){
+    for (var element of form){
+        element.blur();
     }
 }
 
