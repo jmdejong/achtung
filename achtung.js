@@ -28,16 +28,22 @@ class Achtung {
                 this.players.set(id, new Player(id, options.templates[template], options.templates));
             }
         }
+        this.continue = true;
         this.initRound();
         this.lastUpdate = performance.now();
         this.update(this.lastUpdate);
     }
-        
+    
+    stop(){
+        this.continue = false;
+    }
     
     update(now){
         this[this.state](now - this.lastUpdate);
         this.lastUpdate = now;
-        requestAnimationFrame(this.boundUpdate);
+        if (this.continue){
+            requestAnimationFrame(this.boundUpdate);
+        }
     }
     
     initRound(){
