@@ -19,6 +19,11 @@ class Achtung {
         this.players = new Map();
         for (var id in options.players){
             var player = options.players[id];
+            while (player.template){
+                let template = options.templates[player.template];
+                delete player.template;
+                player = Object.assign({}, template, player)
+            }
             this.players.set(id, new Player(id, player));
         }
         this.initRound();
