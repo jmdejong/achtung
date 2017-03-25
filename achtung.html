@@ -28,6 +28,7 @@ body {
 
     <script src='gamefield.js'></script>
     <script src='head.js'></script>
+    <script src='powerups.js'></script>
     <script src='gameround.js'></script>
     <script src='controllers.js'></script>
     <script src='input.js'></script>
@@ -59,12 +60,14 @@ body {
     "waitbefore": 3,
     "waitafter": 3,
     "maxtimestep": 0.0333,
-    "wrapboundaries": true,
+    "wrapboundaries": false,
     "holes": true,
     "holechance": 0.2,
     "holesize": 20,
     "holedistancemax": 400,
     "holedistancemin": 400,
+    "powerups": true,
+    "powerupsize": 8,
     
     "templates":{
         "randombot":{
@@ -72,6 +75,7 @@ body {
             "colour": "white"
         },
         "pointsbot":{
+            "name": "gronald",
             "controltype": "whisker",
             "colour": "white",
             "controlpoints": [
@@ -90,21 +94,20 @@ body {
     
     "players":[
         {
-            "name": "player",
+            "name": "player1",
             "colour": "blue",
             "controltype": "input",
             "leftcontrol": "keyboard_ArrowLeft",
             "rightcontrol": "keyboard_ArrowRight"
         },
         {
-            "name": "Gronald",
+            "name": "player2",
             "colour": "red",
             "controltype": "input",
             "leftcontrol": "keyboard_KeyA",
             "rightcontrol": "keyboard_KeyD"
         },
         {
-            "name": "Gronald",
             "colour": "lime",
             "template": "pointsbot"
         },
@@ -115,7 +118,7 @@ body {
     ],
     
     "others": {
-        "pointsbot": 10
+        "pointsbot": 3
     }
 }
 </textarea>

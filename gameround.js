@@ -9,6 +9,8 @@ class GameRound{
         this.field = new GameField(options.width, options.height);
         this.players = new Map();
         
+        this.updateListeners = new Map();
+        
         this.width = options.width;
         this.height = options.height;
         this.recentDeaths = 0;
@@ -25,6 +27,10 @@ class GameRound{
         this.holeSize = this.options.holesize;
         this.maxHoleDist = this.options.holedistancemax;
         this.minHoleDist = this.options.holedistancemin;
+        
+        if (options.powerups){
+            this.powerup = new Powerup(Math.random()*this.width, Math.random()*this.height, options.powerupsize);
+        }
     }
     
     
@@ -62,6 +68,9 @@ class GameRound{
         for (let player of this.players.values()){
             player.update(timePassed)
         }
+        for (let listener of this.updateListeners.values()){
+            listener(timePassed);
+        }
     }
     
     isInGame(playername){
@@ -70,5 +79,16 @@ class GameRound{
     
     livingPlayers(){
         return new Set(this.players.keys());
+    }
+    
+    addUpdateListener(callback, key){
+        if (key === undefined){
+            key = callback;
+        }
+        this.updateListeners.set(key, callback);
+    }
+    
+    removeUpdateListener(key){
+        this.updateListeners.delete(key);
     }
 }

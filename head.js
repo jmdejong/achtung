@@ -113,6 +113,13 @@ class Head {
             }, null);
             this.tail.shift();
         }
+        
+        
+        var powerup = this.game.powerup;
+        if (powerup && Math.hypot(this.x - powerup.x, this.y - powerup.y) < this.size + powerup.size){
+            powerup.pickUp(this, this.game);
+            this.game.powerup = null;
+        }
     }
     
     leaveTrail(){

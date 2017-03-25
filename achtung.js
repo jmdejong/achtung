@@ -70,7 +70,7 @@ class Achtung {
         this.control();
         
         this.gameround.halfUpdate(Math.min((timepassed)/1000,this.options.maxtimestep));
-        this.draw.draw(this.getPlayerData(), true);
+        this.draw.draw(this.getPlayerData(), this.gameround, true);
         
         this.timeToWait -= timepassed;
         if (this.timeToWait <= 0){
@@ -89,9 +89,9 @@ class Achtung {
                 this.players.get(id).score++;
             }
         }
-        this.draw.draw(this.getPlayerData());
+        this.draw.draw(this.getPlayerData(), this.gameround);
         
-        if (this.gameround.players.size < 1) {
+        if (this.gameround.players.size <= 1) {
             this.state = "postGame";
             this.timeToWait = this.options.waitafter * 1000
         }
@@ -99,7 +99,7 @@ class Achtung {
     
     postGame(timepassed){
         this.timeToWait -= timepassed;
-        this.draw.draw(this.getPlayerData());
+        this.draw.draw(this.getPlayerData(), this.gameround);
         if (this.timeToWait <= 0){
             this.initRound()
         }
