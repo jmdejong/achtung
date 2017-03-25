@@ -44,7 +44,7 @@ class InputController {
 class WhiskerAIController {
     
     constructor(options){
-        this.points = options.controlpoints;
+        this.points = [...options.controlpoints];
         for (let point of [...this.points]){
             this.points.push({x: -point.x, y: point.y, weight: -point.weight});
         }
@@ -54,9 +54,12 @@ class WhiskerAIController {
         
         var control = 0;
         
+        var cosdir = Math.cos(player.dir);
+        var sindir = Math.sin(player.dir);
+        
         for (let point of this.points){
-            var fieldX = player.x+Math.cos(player.dir)*point.y + Math.sin(player.dir)*point.x|0;
-            var fieldY = player.y-Math.sin(player.dir)*point.y + Math.cos(player.dir)*point.x|0;
+            var fieldX = player.x+cosdir*point.y + sindir*point.x |0;
+            var fieldY = player.y-sindir*point.y + cosdir*point.x |0;
             if (game.options.wrapboundaries){
                 fieldX = mod(fieldX, game.width);
                 fieldY = mod(fieldY, game.height);

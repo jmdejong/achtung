@@ -5,9 +5,10 @@
 class Draw {
     
     
-    constructor(canvas){
+    constructor(canvas, scoreList){
         
         this.canvas = canvas;
+        this.scoreList = scoreList;
         this.ctx = canvas.getContext('2d');
         
         this.width = this.canvas.width;
@@ -25,6 +26,7 @@ class Draw {
     setSize(width, height){
         this.width = this.canvas.width = this.bgcanvas.width = width;
         this.height = this.canvas.height = this.bgcanvas.height = height;
+        this.scoreList.style.height = height + "px";
     }
     
     drawPlayer(player, ctx){
@@ -68,15 +70,40 @@ class Draw {
     draw(players, drawDirections){
         this.ctx.clearRect(0,0,this.width, this.height);
         this.ctx.drawImage(this.bgcanvas, 0, 0);
-        for (let player of players){
-            this.drawPlayer(player, this.ctx);
-//             this.debugPlayer(player, this.ctx);
-            if (!player.hole){
-                this.drawPlayer(player, this.bgctx);
+        
+        players.sort((p1, p2) => (p1.score < p2.score) - (p1.score > p2.score));
+        
+        
+        var scores = document.createElement("div");
+        
+        for (let i=0; i<players.length; i++){
+            var player = players[i];
+            if (player.alive){
+                this.drawPlayer(player, this.ctx);
+//                 this.debugPlayer(player, this.ctx);
+                if (!player.hole){
+                    this.drawPlayer(player, this.bgctx);
+                }
+                if (drawDirections){
+                    this.drawPlayerDirection(player, this.ctx);
+                }
             }
-            if (drawDirections){
-                this.drawPlayerDirection(player, this.ctx);
-            }
+            
+            var nameNode = document.createElement("div");
+            nameNode.appendChild(document.createTextNode(player.name));
+            var scoreNode = document.createElement("div");
+            scoreNode.appendChild(document.createTextNode(player.score));
+            scoreNode.style.fontSize = "48px";
+            var node = document.createElement("div");
+            node.appendChild(nameNode);
+            node.appendChild(scoreNode);
+            scores.appendChild(node);
+            node.style.color = player.colour;
+            
         }
+        while (this.scoreList.firstChild){
+            this.scoreList.removeChild(this.scoreList.firstChild);
+        }
+        this.scoreList.appendChild(scores);
     }
 }

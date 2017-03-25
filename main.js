@@ -17,7 +17,8 @@ function start(e){
 
 function main(){
     var canvas = document.getElementById("gamecanvas");
-    game = new Achtung(canvas);
+    var scoreList = document.getElementById("scorelist");
+    game = new Achtung(canvas, scoreList);
     disableForm(document.getElementById("optionsform"), false);
     document.getElementById("optionsform").addEventListener("submit", start);
     document.getElementById("startbutton").focus();

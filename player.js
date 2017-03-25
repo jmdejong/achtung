@@ -4,13 +4,24 @@
 // quite different from the player in the gameround
 class Player {
     
-    constructor(id, options){
+    constructor(id, options, templates){
+        options = this.loadTemplate(options, templates)
         this.id = id;
         this.name = options.name || "";
         this.options = options;
         this.controller = new Controllers[options.controltype](options, this.name);
         this.score = 0;
         this.colour = options.colour;
+    }
+    
+    
+    
+    loadTemplate(playerOptions, templates){
+        if (playerOptions.template){
+            return Object.assign(this.loadTemplate(templates[playerOptions.template], templates), playerOptions);
+        } else {
+            return Object.assign({}, playerOptions);
+        }
     }
     
     control(input, game){

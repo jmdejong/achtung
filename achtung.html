@@ -3,10 +3,24 @@
 <head>
     <meta charset='utf-8'/>
     <style type='text/css'>
-
+/**/
+body {
+    background-color: black;
+    font-family: sans-serif;
+}
 .gamecanvas {
     background-color: black;
     float: left;
+    border: 1px solid white;
+}
+.scorelist {
+    background-color: black;
+    color: white;
+    float: left;
+    width: 120px;
+    height: 600px;
+    border: 1px solid white;
+    overflow: hidden;
 }
     </style>
 
@@ -22,22 +36,22 @@
     <script src='drawing.js'></script>
 
     <script src='achtung.js'></script>
-
-    <script src='defaultoptions.js'></script>
     
     <script src='main.js'></script>
     
 </head>
 <body>
-    
-    <canvas id='gamecanvas' class='gamecanvas' width=800 height=480>
-    </canvas>
 
+    <canvas id='gamecanvas' class='gamecanvas' width=800 height=600>
+    </canvas>
+    <div class='scorelist' id='scorelist'>
+    </div>
+    
     <form id='optionsform' action='javascript:void(0)'>
-        <textarea id='optionstext' rows=30 cols=60>
+        <textarea id='optionstext' rows=30 cols=52>
 {
     "width": 800,
-    "height": 480,
+    "height": 600,
     "spawnedgedistance": 40,
     "speed": 100,
     "radius": 2,
@@ -53,8 +67,13 @@
     "holedistancemin": 400,
     
     "templates":{
-        "bot":{
+        "randombot":{
+            "controltype":"random",
+            "colour": "white"
+        },
+        "pointsbot":{
             "controltype": "whisker",
+            "colour": "white",
             "controlpoints": [
                 {"x": 80, "y": 90, "weight": 0.1},
                 {"x": 30, "y": 110, "weight": 0.2},
@@ -64,7 +83,7 @@
                 {"x": 7, "y": 58, "weight": 2},
                 {"x": 10, "y": 35, "weight": 4},
                 {"x": 20, "y": 30, "weight": 6},
-                {"x": 5, "y": 10, "weight": 15}
+                {"x": 5, "y": 10, "weight": 50}
             ]
         }
     },
@@ -87,13 +106,17 @@
         {
             "name": "Gronald",
             "colour": "lime",
-            "template": "bot"
+            "template": "pointsbot"
         },
         {
-            "template": "bot",
+            "template": "pointsbot",
             "colour": "yellow"
         }
-    ]
+    ],
+    
+    "others": {
+        "pointsbot": 10
+    }
 }
 </textarea>
         <br />

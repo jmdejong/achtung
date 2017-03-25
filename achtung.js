@@ -2,10 +2,10 @@
 
 class Achtung {
     
-    constructor(outputElement){
+    constructor(outputElement, scoreList){
         this.boundUpdate = this.update.bind(this);
         this.input = new InputManager();
-        this.draw = new Draw(outputElement, 1, 1);
+        this.draw = new Draw(outputElement, scoreList);
     }
     
     getPlayerData(){
@@ -18,18 +18,21 @@ class Achtung {
         this.draw.setSize(options.width, options.height);
         this.players = new Map();
         for (var id in options.players){
-            var player = options.players[id];
-            while (player.template){
-                let template = options.templates[player.template];
-                delete player.template;
-                player = Object.assign({}, template, player)
+            this.players.set(id, new Player(id, options.players[id], options.templates));
+        }
+        this.nextId = options.players.length;
+        for (var template in options.others){
+            var num = this.options.others[template];
+            for (var i=0; i<num; i++){
+                var id = this.nextId++;
+                this.players.set(id, new Player(id, options.templates[template], options.templates));
             }
-            this.players.set(id, new Player(id, player));
         }
         this.initRound();
         this.lastUpdate = performance.now();
         this.update(this.lastUpdate);
     }
+        
     
     update(now){
         this[this.state](now - this.lastUpdate);
@@ -79,13 +82,6 @@ class Achtung {
             for (var id of this.gameround.livingPlayers()){
                 this.players.get(id).score++;
             }
-            
-            // debug score printing
-            let scores = []
-            for (var player of this.players.values()){
-                scores.push(player.name+": "+player.score);
-            }
-            console.log(scores.join("\n"));
         }
         this.draw.draw(this.getPlayerData());
         

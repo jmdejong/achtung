@@ -40,3 +40,18 @@ function mod(a, b){
     }
     return r;
 }
+
+
+function normalize(x, y){
+    var l = Math.hypot(x, y);
+    return [x/l, y/l];
+}
+
+function imagMult(a, b, c, d){
+    // (a + bi) * (c + di) =
+    // a*(c+di) + bi * (c+di) =
+    // ac + adi + bic + bidi =
+    // ac + adi + bci - bd =
+    // (ac - bd) + (ad + bc)i
+    return [a*c - b*d, a*d + b*c];
+}
