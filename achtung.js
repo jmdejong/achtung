@@ -41,7 +41,7 @@ class Achtung {
         
         this.gameround = new GameRound(this.options);
         for (let player of this.players.values()){
-            this.gameround.makeHead(player.id, player.colour);
+            this.gameround.makeHead(player.id);
         }
         this.draw.reset();
         
@@ -75,6 +75,18 @@ class Achtung {
         this.control();
         
         this.gameround.update(Math.min((timepassed)/1000,this.options.maxtimestep));
+        if (this.gameround.recentDeaths){
+            for (var id of this.gameround.livingPlayers()){
+                this.players.get(id).score++;
+            }
+            
+            // debug score printing
+            let scores = []
+            for (var player of this.players.values()){
+                scores.push(player.name+": "+player.score);
+            }
+            console.log(scores.join("\n"));
+        }
         this.draw.draw(this.getPlayerData());
         
         if (this.gameround.players.size < 1) {

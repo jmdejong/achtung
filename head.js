@@ -4,10 +4,9 @@
 class Head {
     
     
-    constructor(name, id, colour, game, options){
+    constructor(name, id, game, options){
         this.name = name;
         this.id = id;
-        this.colour = colour;
         this.game = game;
         
         this.options = options;
@@ -20,7 +19,8 @@ class Head {
         this.size = options.size || 1; // radius in pixels
         this.rotSpeed = options.rotSpeed || 1; // rotation speed, radians/second
         
-        this.holeLeft = 0;
+        this.hole = Math.random() * game.maxHoleDist;
+        
         
         this.control = 0;
         
@@ -51,24 +51,25 @@ class Head {
         
     
     update(timePassed){
-        // todo: check the signs
         
         this.updateDir(timePassed);
         
+        // to remember:
+        // If there ever is a possibility that the size changes during the gameplay
+        // then the size should be stored in the tail
+        this.tail.push({x: this.x, y: this.y});
         
         this.x += Math.cos(this.dir) * this.speed * timePassed;
         this.y -= Math.sin(this.dir) * this.speed * timePassed;
         
-        
-        if (this.game.options.holechance && this.game.options.holechance > Math.random()){
-            this.holeLeft = this.game.options.holesize;
+        this.hole -= this.speed * timePassed;
+        if (this.hole < -this.game.holeSize){
+            this.hole = this.game.minHoleDist + Math.random()*(this.game.maxHoleDist - this.game.minHoleDist);
         }
-        
-        this.holeLeft = Math.max(this.holeLeft - this.speed*timePassed, 0);
         
         var self = this;
         this.game.field.forAnyCircle(this.x, this.y, this.size, function(val, [x, y], field){
-            if (self.game.options.wrapboundaries){
+            if (self.game.wrap){
                 x = mod(x, self.game.width);
                 y = mod(y, self.game.height);
                 val = self.game.field.get(x, y, null);
@@ -77,21 +78,17 @@ class Head {
                 self.die();
                 return true;
             }
-            if (!self.holeLeft){
+            if (self.leaveTrail()){
                 field.set(x, y, self.id);
             }
         }, null);
         
         
-        if (this.game.options.wrapboundaries){
+        if (this.game.wrap){
             this.x = mod(this.x, this.game.width);
             this.y = mod(this.y, this.game.height);
         }
         
-        // to remember:
-        // If there ever is a possibility that the size changes during the gameplay
-        // then the size should be stored in the tail
-        this.tail.push({x: this.x, y: this.y});
         
         while(
             this.tail[0] && 
@@ -105,7 +102,7 @@ class Head {
             ) > this.size*2 + 1
              ){
             this.game.field.forAnyCircle(this.tail[0].x, this.tail[0].y, this.size, function(val, [x, y], field){
-                if (self.game.options.wrapboundaries){
+                if (self.game.wrap){
                     x = mod(x, self.game.width);
                     y = mod(y, self.game.height);
                     val = self.game.field.get(x, y, null);
@@ -118,7 +115,12 @@ class Head {
         }
     }
     
+    leaveTrail(){
+        return this.hole > 0;
+    }
+    
     die(){
         this.game.removePlayer(this.name);
+        ++this.game.recentDeaths;
     }
 }
