@@ -8,10 +8,9 @@ class Player {
         options = this.loadTemplate(options, templates)
         this.id = id;
         this.name = options.name || "";
-        this.options = options;
         this.controller = new Controllers[options.controltype](options, this.name);
         this.score = 0;
-        this.colour = options.colour;
+        this.colour = options.colour || options.color || "white";
     }
     
     

@@ -12,6 +12,11 @@ function main(){
     var startButton = document.getElementById("startbutton");
     var stopButton = document.getElementById("stopbutton");
     var optionsForm = document.getElementById("optionsform");
+    var optionsText = document.getElementById("optionstext");
+    
+    if (!optionsText.value){
+        optionsText.value = DEFAULT_OPTIONS;
+    }
     
     var game = new Achtung(canvas, scoreList);
     
@@ -22,7 +27,7 @@ function main(){
         disableForm(form);
         startButton.hidden = true;
         stopButton.hidden = false;
-        var options = JSON.parse(document.getElementById("optionstext").value)
+        var options = JSON.parse(optionsText.value)
         game.start(options)
     }
 
