@@ -30,17 +30,10 @@ class GameRound{
         
         this.swapControls = false;
         
+        this.powerupChance = options.powerupchance;
+        this.maxPowerups = options.maxpowerups || Infinity;
+        this.possiblePowerups = options.powerups;
         this.powerups = new Set();
-        if (options.powerups){
-            this.powerups.add(new Powerups.change(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
-            this.powerups.add(new Powerups.slow(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
-            this.powerups.add(new Powerups.invulnerable(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
-            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
-            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
-            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
-            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
-            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
-        }
     }
     
     
@@ -78,6 +71,15 @@ class GameRound{
     
     update(timePassed){
         this.recentDeaths = 0;
+        if (
+            this.possiblePowerups
+            && this.possiblePowerups.length
+            && this.powerupChance * timePassed > Math.random()
+            && this.powerups.size < this.maxPowerups
+        ){
+            var type = this.possiblePowerups[Math.random()*this.possiblePowerups.length|0]
+            this.powerups.add(new Powerups[type](Math.random()*this.width, Math.random()*this.height));
+        }
         for (let player of this.players.values()){
             player.update(timePassed)
         }

@@ -69,6 +69,14 @@ class Draw {
     
     draw(players, gameRound, drawDirections){
         this.ctx.clearRect(0,0,this.width, this.height);
+        
+        for (var powerup of gameRound.powerups){
+            this.ctx.fillStyle = powerup.colour;
+            this.ctx.beginPath();
+            this.ctx.arc(powerup.x, powerup.y, powerup.size, 0, 2*Math.PI);
+            this.ctx.fill();
+        }
+        
         this.ctx.drawImage(this.bgcanvas, 0, 0);
         
         players.sort((p1, p2) => (p1.score < p2.score) - (p1.score > p2.score));
@@ -105,12 +113,5 @@ class Draw {
         }
         this.scoreList.appendChild(scores);
         
-        
-        for (var powerup of gameRound.powerups){
-            this.ctx.fillStyle = powerup.colour;
-            this.ctx.beginPath();
-            this.ctx.arc(powerup.x, powerup.y, powerup.size, 0, 2*Math.PI);
-            this.ctx.fill();
-        }
     }
 }

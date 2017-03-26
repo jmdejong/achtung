@@ -79,14 +79,14 @@ class TIENWASMACHIEN extends Powerup {
             ids.splice(place, 1);
             player.name = id;
             playersById.set(id, player);
-            player.vulnerable = false;
+            player.invulnerable++;
         }
         game.players = playersById;
     }
     
     undo(player, game){
         for (let player of game.players.values()){
-            player.vulnerable = true;
+            player.invulnerable--;
         }
     }
 }
@@ -98,17 +98,20 @@ class Invulnerable extends Powerup {
     }
     
     onPick(player, game){
-        player.vulnerable = false;
+        player.invulnerable++;
     }
     
     undo(player, game){
-        player.vulnerable = true;
+        player.invulnerable--;
     }
 }
 
 
 
 
-return {slow: Slowdown, change: ChangeControls, invulnerable: Invulnerable, randomize: TIENWASMACHIEN};
+var Powerups = {slow: Slowdown, change: ChangeControls, invulnerable: Invulnerable, randomize: TIENWASMACHIEN};
+Powerups["10wasmachien"] = Powerups["10wasmachine"] = TIENWASMACHIEN;
+
+return Powerups
 
 })();

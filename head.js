@@ -21,7 +21,7 @@ class Head {
         
         this.hole = Math.random() * game.maxHoleDist;
         
-        this.vulnerable = true;
+        this.invulnerable = 0;
         
         this.control = 0;
         
@@ -75,7 +75,7 @@ class Head {
                 y = mod(y, self.game.height);
                 val = self.game.field.get(x, y, null);
             };
-            if (self.vulnerable && val && val != self.id || val == null){ // yes, the undefind == null is intentional
+            if (!self.invulnerable && val && val != self.id || val == null){ // yes, the undefind == null is intentional
                 self.die();
                 return true;
             }
