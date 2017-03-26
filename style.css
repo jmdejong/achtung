@@ -1,0 +1,22 @@
+
+body {
+    background-color: black;
+    font-family: sans-serif;
+}
+a {
+    color: #99f;
+}
+.gamecanvas {
+    background-color: black;
+    float: left;
+    border: 1px solid white;
+}
+.scorelist {
+    background-color: black;
+    color: white;
+    float: left;
+    width: 120px;
+    height: 600px;
+    border: 1px solid white;
+    overflow: hidden;
+}

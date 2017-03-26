@@ -59,8 +59,8 @@ There are several powerups in the game:
 * green: slow: the player will be slower for 3 seconds.
 * orange: invulnerable: the player is invulnerable to other lines fo 2 seconds.
 * purple: change: the left and right controls are swapped.
-* cyan: randomize aka 10wasmachine: all players places and lines are changed to another player.
+* lightgreenis: randomize aka 10wasmachine: all players places and lines are changed to another player.
   current modifiers (such as slow) are changed as well.
-  all player will be invulnerable for 0.5 seconds.
+  all player will be invulnerable for 1 second.
 
 

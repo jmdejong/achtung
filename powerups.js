@@ -36,16 +36,16 @@ class Powerup {
 class Slowdown extends Powerup {
     
     constructor(x, y){
-        super(x, y, 8, "lime", 3);
+        super(x, y, 8, "green", 3);
     }
     
     onPick(player, game){
-        player.speed = game.playerSpeed/2;
+        player.speed /= 2;
     }
     
     
-    undo(){
-        this.player.speed = this.game.playerSpeed;
+    undo(player, game){
+        player.speed *= 2;
     }
 }
 
@@ -56,18 +56,18 @@ class ChangeControls extends Powerup {
     }
     
     onPick(player, game){
-        game.swapControls = true;
+        game.swapControls = !game.swapControls;
     }
     
     undo(player, game){
-        this.game.swapControls = false;
+        game.swapControls = !game.swapControls;
     }
 }
 
 class TIENWASMACHIEN extends Powerup {
     
     constructor(x, y){
-        super(x, y, 8, "cyan", .5);
+        super(x, y, 8, "#0f7", 1);
     }
     
     onPick(player, game){
@@ -81,6 +81,7 @@ class TIENWASMACHIEN extends Powerup {
             player.name = newId;
             playersById.set(newId, player);
             player.invulnerable++;
+            player.speed /= 2;
         }
         game.players = playersById;
     }
@@ -88,6 +89,7 @@ class TIENWASMACHIEN extends Powerup {
     undo(player, game){
         for (let player of game.players.values()){
             player.invulnerable--;
+            player.speed *= 2;
         }
     }
 }
