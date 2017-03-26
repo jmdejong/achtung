@@ -28,8 +28,18 @@ class GameRound{
         this.maxHoleDist = this.options.holedistancemax;
         this.minHoleDist = this.options.holedistancemin;
         
+        this.swapControls = false;
+        
+        this.powerups = new Set();
         if (options.powerups){
-            this.powerup = new Powerup(Math.random()*this.width, Math.random()*this.height, options.powerupsize);
+            this.powerups.add(new Powerups.change(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
+            this.powerups.add(new Powerups.slow(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
+            this.powerups.add(new Powerups.invulnerable(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
+            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
+            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
+            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
+            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
+            this.powerups.add(new Powerups.randomize(Math.random()*this.width, Math.random()*this.height, options.powerupsize));
         }
     }
     
@@ -50,6 +60,9 @@ class GameRound{
     }
     
     controlPlayer(name, control){
+        if (this.swapControls){
+            control = -control;
+        }
         this.players.get(name).control = control;
     }
     

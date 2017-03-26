@@ -21,6 +21,7 @@ class Head {
         
         this.hole = Math.random() * game.maxHoleDist;
         
+        this.vulnerable = true;
         
         this.control = 0;
         
@@ -74,7 +75,7 @@ class Head {
                 y = mod(y, self.game.height);
                 val = self.game.field.get(x, y, null);
             };
-            if (val && val != self.id || val == null){ // yes, the undefind == null is intentional
+            if (self.vulnerable && val && val != self.id || val == null){ // yes, the undefind == null is intentional
                 self.die();
                 return true;
             }
@@ -114,11 +115,11 @@ class Head {
             this.tail.shift();
         }
         
-        
-        var powerup = this.game.powerup;
-        if (powerup && Math.hypot(this.x - powerup.x, this.y - powerup.y) < this.size + powerup.size){
-            powerup.pickUp(this, this.game);
-            this.game.powerup = null;
+        for (let powerup of [...this.game.powerups]){
+            if (Math.hypot(this.x - powerup.x, this.y - powerup.y) < this.size + powerup.size){
+                powerup.pickUp(this, this.game);
+                this.game.powerups.delete(powerup);
+            }
         }
     }
     

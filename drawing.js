@@ -71,14 +71,6 @@ class Draw {
         this.ctx.clearRect(0,0,this.width, this.height);
         this.ctx.drawImage(this.bgcanvas, 0, 0);
         
-        var powerup = gameRound.powerup;
-        if(powerup){
-            this.ctx.fillStyle = powerup.colour;
-            this.ctx.beginPath();
-            this.ctx.arc(powerup.x, powerup.y, powerup.size, 0, 2*Math.PI);
-            this.ctx.fill();
-        }
-        
         players.sort((p1, p2) => (p1.score < p2.score) - (p1.score > p2.score));
         var scores = document.createElement("div");
         
@@ -107,9 +99,18 @@ class Draw {
             node.style.color = player.colour;
             
         }
+        
         while (this.scoreList.firstChild){
             this.scoreList.removeChild(this.scoreList.firstChild);
         }
         this.scoreList.appendChild(scores);
+        
+        
+        for (var powerup of gameRound.powerups){
+            this.ctx.fillStyle = powerup.colour;
+            this.ctx.beginPath();
+            this.ctx.arc(powerup.x, powerup.y, powerup.size, 0, 2*Math.PI);
+            this.ctx.fill();
+        }
     }
 }
