@@ -55,3 +55,12 @@ function imagMult(a, b, c, d){
     // (ac - bd) + (ad + bc)i
     return [a*c - b*d, a*d + b*c];
 }
+
+function shuffle(array) {
+    var a = array;
+    for (let i = a.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
+    return a;
+}

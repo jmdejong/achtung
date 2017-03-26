@@ -52,7 +52,7 @@ class Slowdown extends Powerup {
 class ChangeControls extends Powerup {
     
     constructor(x, y){
-        super(x, y, 8, "magenta", 3);
+        super(x, y, 8, "purple", 3);
     }
     
     onPick(player, game){
@@ -71,14 +71,15 @@ class TIENWASMACHIEN extends Powerup {
     }
     
     onPick(player, game){
-        var ids = [...game.players.keys()];
+        
+        var ids = shuffle([...game.players.keys()]);
         var playersById = new Map();
-        for (let player of game.players.values()){
-            var place = Math.random()*ids.length | 0;
-            let id = ids[place];
-            ids.splice(place, 1);
-            player.name = id;
-            playersById.set(id, player);
+        for (var i=0; i<ids.length; i++){
+            let id = ids[i];
+            let player = game.players.get(id);
+            let newId = ids[mod(i-1, ids.length)];
+            player.name = newId;
+            playersById.set(newId, player);
             player.invulnerable++;
         }
         game.players = playersById;
@@ -94,7 +95,7 @@ class TIENWASMACHIEN extends Powerup {
 class Invulnerable extends Powerup {
     
     constructor(x, y){
-        super(x, y, 8, "orange", 3);
+        super(x, y, 8, "orange", 2);
     }
     
     onPick(player, game){

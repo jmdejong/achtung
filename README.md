@@ -4,7 +4,7 @@
 
 A clone of the game [Achtung, die Kurve](https://en.wikipedia.org/wiki/Achtung,_die_Kurve!).
 
-Now in your browser with bots, powerups, as many players as you want and so many configuration options.
+Now in your browser with bots, powerups, as many players as you want and many configuration options.
 
 # Instructions
 
@@ -32,7 +32,7 @@ If you remove the "powerups" option, or set it to an empty list, no powerups wil
 
 The lines have holes in them at random intervals. To disable this, set the "holes" option to false.
 
-### players
+### Players
 
 The "players" options is a list of players.
 
@@ -51,3 +51,16 @@ When creating a new player object, you can set several options:
 * template: When a template is given, all options of the named template are used in this player.
   Options given directly to the player will overwrite the template options.
   The easiest way to get a bot is to set the template to "pointsbot" (assuming you still have the pointsbot template)
+
+## Powerups
+
+There are several powerups in the game:
+
+* green: slow: the player will be slower for 3 seconds.
+* orange: invulnerable: the player is invulnerable to other lines fo 2 seconds.
+* purple: change: the left and right controls are swapped.
+* cyan: randomize aka 10wasmachine: all players places and lines are changed to another player.
+  current modifiers (such as slow) are changed as well.
+  all player will be invulnerable for 0.5 seconds.
+
+
