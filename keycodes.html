@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'/>
+
+    <script>
+// this comment resets indentation in my editor
+
+window.addEventListener("keypress", function(e){
+    document.getElementById("maincode").innerHTML = "keyboard_"+e.code;
+    var keynames = [];
+    for (var type of ["code", "key", "which", "keyCode", "char", "charCode", "keyIdentifier"]){
+        keynames.push("keyboard_" + type + "_" + e[type]);
+    }
+    document.getElementById("altcodes").innerHTML = keynames.join("\n");
+});
+    </script>
+    
+</head>
+<body>
+    <p>
+    Press a key and see the code below.
+    </p>
+    <pre id="maincode"></pre>
+    <p>
+    In case your browser doesn't work with the key code, the following possibilities are supported as well:
+    </p>
+    <pre id="altcodes"></pre>
+    <p>
+    Each type has its advantages and disadvantages:
+    </p>
+    <ul>
+    <li>code: This is the default. Might not work in IE, Edge and older verisons of browsers</li>
+    <li>key: Should work in all modern browsers, but is sensitive for modifiers. For example, if someone presses capslock, all letter keys might not respond anymore because they were meant to register lowercase letters only.</li>
+    <li>which: Old version of key checking. Currently deprecated, but should be available in almost any browser.</li>
+    <li>keyCode: deprecated; synonymous for which; doesn't work firefox</li>
+    <li>char: deprecated; doesn't work in firefox or chromium</li>
+    <li>charCode: deprecated; synonymous of which</li>
+    <li>keyIdentifier: deprecated; doesn't work in firefox or chromium</li>
+</body>
+</html>

@@ -48,6 +48,7 @@ When creating a new player object, you can set several options:
 * leftcontrol and rightcontrol: only available when controltype is "input".
   Set the keycodes to control your left and right.
   keyboard\_KeyA means the A key, keyboard\_ArrowLeft the left arrow key, keyboard\_Digit1 the 1 key in the top digit row, keyboard\_Numpad1 the 1 key on the numpad etc.
+  [Test here to find the correct keycodes](http://tilde.town/~troido/achtung/keycodes.html)
 * template: When a template is given, all options of the named template are used in this player.
   Options given directly to the player will overwrite the template options.
   The easiest way to get a bot is to set the template to "pointsbot" (assuming you still have the pointsbot template)
