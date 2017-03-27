@@ -64,4 +64,12 @@ There are several powerups in the game:
   current modifiers (such as slow) are changed as well.
   all player will be invulnerable for 1 second.
 
+# To do
+
+* Make a form to set all the options without edition JSON
+* Write advanced documentation
+* Play a fixed number of rounds, or to a maximum score
+* Give powerups images
+* Make better bots
+
 
