@@ -8,6 +8,7 @@ class GameRound{
         this.options = options
         this.field = new GameField(options.width, options.height);
         this.players = new Map();
+        this.botField = new GameField(options.width, options.height);
         
         this.updateListeners = new Map();
         
@@ -105,5 +106,9 @@ class GameRound{
     
     removeUpdateListener(key){
         this.updateListeners.delete(key);
+    }
+    
+    getBotField(){
+        return this.botField();
     }
 }

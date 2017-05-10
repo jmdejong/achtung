@@ -18,7 +18,9 @@ class Achtung {
         this.draw.setSize(options.width, options.height);
         this.players = new Map();
         for (var id in options.players){
-            this.players.set(id, new Player(id, options.players[id], options.templates));
+            if (!options.players[id].disabled){
+                this.players.set(id, new Player(id, options.players[id], options.templates));
+            }
         }
         this.nextId = options.players.length;
         for (var template in options.others){
@@ -28,7 +30,12 @@ class Achtung {
                 this.players.set(id, new Player(id, options.templates[template], options.templates));
             }
         }
+        this.botField = new BotField(options.width, options.height)
+        if (!options.wrapboundaries){
+            this.botField.drawEdges(options.radius);
+        }
         this.continue = true;
+		this.roundNum = 0;
         this.initRound();
         this.lastUpdate = performance.now();
         this.update(this.lastUpdate);
@@ -59,9 +66,10 @@ class Achtung {
     }
     
     control(){
+        
         for (var id of this.gameround.livingPlayers()){
             var player = this.players.get(id);
-            player.control(this.input, this.gameround);
+            player.control(this.input, this.gameround, this.gameround.field, this.options);
         }
     }
     
@@ -90,6 +98,7 @@ class Achtung {
             }
         }
         this.draw.draw(this.getPlayerData(), this.gameround);
+        this.botField.update(this.getPlayerData());
         
         if (this.gameround.players.size <= 1) {
             this.state = "postGame";
@@ -101,7 +110,12 @@ class Achtung {
         this.timeToWait -= timepassed;
         this.draw.draw(this.getPlayerData(), this.gameround);
         if (this.timeToWait <= 0){
-            this.initRound()
+            this.roundNum ++;
+            if (this.options.maxrounds && this.roundNum >= this.options.maxrounds){
+                this.stop();
+            } else {
+                this.initRound()
+            }
         }
     }
     

@@ -50,8 +50,7 @@ class WhiskerAIController {
         }
     }
     
-    control(input, player, game){
-        
+    control(input, player, field, options){
         var control = 0;
         
         var cosdir = Math.cos(player.dir);
@@ -60,11 +59,11 @@ class WhiskerAIController {
         for (let point of this.points){
             var fieldX = player.x+cosdir*point.y + sindir*point.x |0;
             var fieldY = player.y-sindir*point.y + cosdir*point.x |0;
-            if (game.options.wrapboundaries){
-                fieldX = mod(fieldX, game.width);
-                fieldY = mod(fieldY, game.height);
+            if (options.wrapboundaries){
+                fieldX = mod(fieldX, field.width);
+                fieldY = mod(fieldY, field.height);
             }
-            var fieldVal = game.field.get(fieldX, fieldY, -1);
+            var fieldVal = field.get(fieldX, fieldY, -1);
             control += (fieldVal !== 0) * point.weight;
         }
         return control;
@@ -74,11 +73,11 @@ class WhiskerAIController {
 
 class OldAIController {
     
-    control(input, player, game){
+    control(input, player, field, options){
         var x = player.x;
         var y = player.y;
         var dir = player.dir;
-        var map = game.field;
+        var map = field;
         var cos = Math.cos;
         var sin = Math.sin;
         function ds_grid_get_disk_sum(field, cx, cy, radius){

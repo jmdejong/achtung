@@ -5,12 +5,16 @@
 
 class GameField {
     
-    constructor(width, height){
+    constructor(width, height, dataBuffer){
         
         this.width = width;
         this.height = height;
         
-        this.field = new Uint32Array(width*height);
+        if (dataBuffer){
+            this.field = new Uint32Array(dataBuffer);
+        } else {
+            this.field = new Uint32Array(width*height);
+        }
     }
     
     isValid(x, y){

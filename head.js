@@ -81,6 +81,7 @@ class Head {
             }
             if (self.leaveTrail()){
                 field.set(x, y, self.id);
+				self.game.botField.set(x, y, self.id);
             }
         }, null);
         

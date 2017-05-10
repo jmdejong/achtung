@@ -23,8 +23,8 @@ class Player {
         }
     }
     
-    control(input, game){
-        game.controlPlayer(this.id, this.controller.control(input, this.getData(game), game));
+    control(input, game, field, options){
+        game.controlPlayer(this.id, this.controller.control(input, this.getData(game), field, options));
     }
     
     
