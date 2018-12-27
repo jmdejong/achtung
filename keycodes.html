@@ -6,7 +6,7 @@
     <script>
 // this comment resets indentation in my editor
 
-window.addEventListener("keypress", function(e){
+window.addEventListener("keydown", function(e){
     document.getElementById("maincode").innerHTML = "keyboard_"+e.code;
     var keynames = [];
     for (var type of ["code", "key", "which", "keyCode", "char", "charCode", "keyIdentifier"]){
