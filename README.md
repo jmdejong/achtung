@@ -1,6 +1,6 @@
 # Achtung
 
-[Play here](http://tilde.town/~troido/achtung/)
+[Play here](https://troido.nl/achtung)
 
 A clone of the game [Achtung, die Kurve](https://en.wikipedia.org/wiki/Achtung,_die_Kurve!).
 
